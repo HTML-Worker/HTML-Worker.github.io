@@ -75,7 +75,7 @@ post_style:
 # Custom Setting End
 # Directory
 source_dir: source
-public_dir: public
+public_dir: docs
 tag_dir: tags
 archive_dir: archive
 category_dir: categories
