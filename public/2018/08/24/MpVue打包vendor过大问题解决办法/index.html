@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="执行者的博客">
+    <meta name="keyword"  content="博客">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        MpVue打包vendor过大问题解决办法 - 执行者的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> I can do it </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>执行者</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MpVue打包vendor过大问题解决办法"><span class="toc-text">MpVue打包vendor过大问题解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题描述："><span class="toc-text">问题描述：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#解决办法："><span class="toc-text">解决办法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拆分-vendor-具体步骤"><span class="toc-text">拆分 vendor 具体步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-对-vendor-进行拆包"><span class="toc-text">1.对 vendor 进行拆包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-修改-mpvue-loader-模板"><span class="toc-text">2. 修改 mpvue-loader 模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-修改了-node-modules-中的包，会导致团队-npm-install-出来的结果不一致，所以需要把-mpvue-loader-单独拿出来迁移到项目里。为了-webpack-任然能使用-mpvue-loader-需要在-build-gt-webpack-base-conf-js-中添加-loader-查询路径配置"><span class="toc-text">3.修改了 node_modules 中的包，会导致团队 npm install 出来的结果不一致，所以需要把 mpvue-loader 单独拿出来迁移到项目里。为了 webpack 任然能使用 mpvue-loader 需要在 build -&gt; webpack.base.conf.js 中添加 loader 查询路径配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-如果执行了第三步，请将-node-modules-中的-mpvue-loader-删除，并删除-package-json-中的-mpvue-loader，并添加-mpvue-loader-的运行依赖到当前项目-package-json-的开发依赖中，以下提供我的-mpvue-loader-的运行依赖"><span class="toc-text">4. 如果执行了第三步，请将 node_modules 中的 mpvue-loader 删除，并删除 package.json 中的 mpvue-loader，并添加 mpvue-loader 的运行依赖到当前项目 package.json 的开发依赖中，以下提供我的 mpvue-loader 的运行依赖</span></a></li></ol></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> I can do it </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        MpVue打包vendor过大问题解决办法
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-08-24 14:48:33</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h2 id="MpVue打包vendor过大问题解决办法"><a href="#MpVue打包vendor过大问题解决办法" class="headerlink" title="MpVue打包vendor过大问题解决办法"></a>MpVue打包vendor过大问题解决办法</h2><h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>mpvue 打包的小程序会自动将重复引用打包到 <code>static</code> -&gt; <code>js</code> -&gt; <code>vendor</code>, 当引用的第三方库过多时，<code>vendor</code> 就会超出 500K ，小程序开发者工具有 500k 限制，大于 500k 的包不进行转码和压缩，此时就可能导致预览失败，文件体积超过 2M 限制</p>
+<h4 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h4><p>1、减少不必要第三方库的使用，或采用精简版的库，满足功能即可<br>2、拆分 <code>vendor</code> ，使每个 <code>js</code> 文件体积小于 500K 开发者工具进行一次压缩就可能低于 2M 了</p>
+<p>本篇文章主要描述如何采用第二种方法</p>
+<h3 id="拆分-vendor-具体步骤"><a href="#拆分-vendor-具体步骤" class="headerlink" title="拆分 vendor 具体步骤"></a>拆分 <code>vendor</code> 具体步骤</h3><h4 id="1-对-vendor-进行拆包"><a href="#1-对-vendor-进行拆包" class="headerlink" title="1.对 vendor 进行拆包"></a>1.对 <code>vendor</code> 进行拆包</h4><ul>
+<li>找到 <code>build</code> -&gt; <code>webpack.dev.conf.js</code>, mpvue 的 <code>npm run dev</code> 使用的就是这份打包配置</li>
+<li>找到 <code>CommonsChunkPlugin</code>, 这是 <code>webpack</code> 提供的拆包工具 <a href="https://segmentfault.com/a/1190000012828879" target="_blank" rel="noopener">详解CommonsChunkPlugin</a></li>
+<li>修改如下配置</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原配置</span></span><br><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">      name: <span class="string">'vendor'</span>,</span><br><span class="line">      minChunks: <span class="function"><span class="keyword">function</span> (<span class="params">module, count</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// console.log(module.resource)</span></span><br><span class="line">        <span class="comment">// any required modules inside node_modules are extracted to vendor</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">          <span class="built_in">module</span>.resource &amp;&amp;</span><br><span class="line">          /\.js$/.test(<span class="built_in">module</span>.resource) &amp;&amp;</span><br><span class="line">          <span class="built_in">module</span>.resource.indexOf(<span class="string">'node_modules'</span>) &gt;= <span class="number">0</span></span><br><span class="line">        )|| count &gt; <span class="number">1</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;),</span><br><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">      name: <span class="string">'manifest'</span>,</span><br><span class="line">      chunks: [<span class="string">'vendor'</span>]</span><br><span class="line">  	&#125;),</span><br></pre></td></tr></table></figure>
+<p>修改为： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">      name: <span class="string">'vendor'</span>,</span><br><span class="line">      minChunks: <span class="function"><span class="keyword">function</span> (<span class="params">module, count</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// console.log(module.resource)</span></span><br><span class="line">        <span class="comment">// any required modules inside node_modules are extracted to vendor</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">          <span class="built_in">module</span>.resource &amp;&amp;</span><br><span class="line">          /\.js$/.test(<span class="built_in">module</span>.resource) &amp;&amp;</span><br><span class="line">          <span class="built_in">module</span>.resource.indexOf(<span class="string">'node_modules'</span>) &gt;= <span class="number">0</span></span><br><span class="line">        )|| count &gt; <span class="number">1</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;),</span><br><span class="line"></span><br><span class="line">    <span class="comment">//新增打包文件</span></span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">      name: <span class="string">'webim'</span>, <span class="comment">//新打包文件名</span></span><br><span class="line">      chunks: [<span class="string">'vendor'</span>], <span class="comment">//拆分模块名</span></span><br><span class="line">      minChunks: <span class="function"><span class="keyword">function</span> (<span class="params">module, count</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">module</span>.resource + count)</span><br><span class="line">        <span class="comment">// 以下是拆分规则，返回true 则拆分，以下规则是将 libs 下的文件单独打包</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">          <span class="built_in">module</span>.resource &amp;&amp;</span><br><span class="line">          /\.js$/.test(<span class="built_in">module</span>.resource) &amp;&amp;</span><br><span class="line">          <span class="built_in">module</span>.resource.indexOf(<span class="string">'libs'</span>) &gt;= <span class="number">0</span> &amp;&amp; </span><br><span class="line">          <span class="built_in">module</span>.resource.indexOf(<span class="string">'node_modules'</span>) === <span class="number">-1</span></span><br><span class="line">        )</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;),</span><br><span class="line">	</span><br><span class="line"><span class="comment">//修改入口</span></span><br><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">      name: <span class="string">'manifest'</span>,</span><br><span class="line">      chunks: [<span class="string">'webim'</span>]</span><br><span class="line">    &#125;),</span><br></pre></td></tr></table></figure>
+<p>需要注意的是拆分顺序不能乱， <code>vendor</code> 拆出来的模块才会到 <code>webim</code>, 如果 <code>vendor</code> 对所有模块的返回值都是 false，则 <code>webim</code> 也为空,经过摸索，我的理解是 <code>webim</code> 是对 <code>vendor</code> 进行了再拆分，所以需要拆分的模块一定要先经过 <code>vendor</code> 的筛选。</p>
+<p>经过以上配置， 你的 <code>dist</code> -&gt; <code>static</code> -&gt; <code>js</code> 下应该多了 <code>webim.js</code>,说明已经拆分成功</p>
+<h4 id="2-修改-mpvue-loader-模板"><a href="#2-修改-mpvue-loader-模板" class="headerlink" title="2. 修改 mpvue-loader 模板"></a>2. 修改 mpvue-loader 模板</h4><p>打包后的文件 <code>dist</code> -&gt; <code>pages</code> 里的页面文件， <code>.js</code>中默认引入以下模块</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'../../../static/js/manifest'</span>)</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'../../../static/js/vendor'</span>)</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'../../../static/js/pages/caseAdvice/main'</span>)</span><br></pre></td></tr></table></figure>
+<p>并没有刚才拆分出来的 <code>webim</code> 的引用，此时程序虽然打包成功，但是缺少模块无法运行</p>
+<p>需要修改 <code>node_modules</code> 中 <code>mpvue-loader</code> -&gt; <code>lib</code> -&gt; <code>mp-compiler</code> -&gt; <code>templates.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//源码</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">'$&#123;prefix&#125;static/js/manifest'</span>)</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'$&#123;prefix&#125;static/js/vendor'</span>)</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'$&#123;prefix&#125;static/js/$&#123;name&#125;'</span>)</span><br></pre></td></tr></table></figure>
+<p>修改为： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//修改后</span></span><br><span class="line"><span class="built_in">require</span>(<span class="string">'$&#123;prefix&#125;static/js/manifest'</span>)</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'$&#123;prefix&#125;static/js/webim'</span>)</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'$&#123;prefix&#125;static/js/vendor'</span>)</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'$&#123;prefix&#125;static/js/$&#123;name&#125;'</span>)</span><br></pre></td></tr></table></figure>
+<p>注意：模板的引用顺序不能乱需要按照 <code>webpack.dev.conf.js</code> 中的配置从后往前引入 。</p>
+<h4 id="3-修改了-node-modules-中的包，会导致团队-npm-install-出来的结果不一致，所以需要把-mpvue-loader-单独拿出来迁移到项目里。为了-webpack-任然能使用-mpvue-loader-需要在-build-gt-webpack-base-conf-js-中添加-loader-查询路径配置"><a href="#3-修改了-node-modules-中的包，会导致团队-npm-install-出来的结果不一致，所以需要把-mpvue-loader-单独拿出来迁移到项目里。为了-webpack-任然能使用-mpvue-loader-需要在-build-gt-webpack-base-conf-js-中添加-loader-查询路径配置" class="headerlink" title="3.修改了 node_modules 中的包，会导致团队 npm install 出来的结果不一致，所以需要把 mpvue-loader 单独拿出来迁移到项目里。为了 webpack 任然能使用 mpvue-loader 需要在 build -&gt; webpack.base.conf.js 中添加 loader 查询路径配置"></a>3.修改了 <code>node_modules</code> 中的包，会导致团队 npm install 出来的结果不一致，所以需要把 <code>mpvue-loader</code> 单独拿出来迁移到项目里。为了 webpack 任然能使用 mpvue-loader 需要在 <code>build</code> -&gt; <code>webpack.base.conf.js</code> 中添加 loader 查询路径配置</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">resolveLoader: &#123;</span><br><span class="line">  modules: [</span><br><span class="line">    <span class="string">'node_modules'</span>, <span class="comment">//默认路径</span></span><br><span class="line">    path.resolve(<span class="string">"./src/lib"</span>) <span class="comment">//添加的配置路径</span></span><br><span class="line">  ]</span><br><span class="line">&#125;,</span><br><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">  rules: [...此内容不变，故省略]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>resolveLoader.modules</code> 配置，webpack 将会从这些目录中搜索这些 loaders。不添加配置默认会在 <code>node_modules</code> 中查找，添加配置之后，会按照配置逐级查询， 我的 <code>mpvue-loader</code> 就放在 <code>src</code> 下的 <code>lib</code> 中,详情可参考 <a href="https://www.cnblogs.com/dupd/p/8418874.html" target="_blank" rel="noopener">webpack3.0之loader配置及编写</a></p>
+<h4 id="4-如果执行了第三步，请将-node-modules-中的-mpvue-loader-删除，并删除-package-json-中的-mpvue-loader，并添加-mpvue-loader-的运行依赖到当前项目-package-json-的开发依赖中，以下提供我的-mpvue-loader-的运行依赖"><a href="#4-如果执行了第三步，请将-node-modules-中的-mpvue-loader-删除，并删除-package-json-中的-mpvue-loader，并添加-mpvue-loader-的运行依赖到当前项目-package-json-的开发依赖中，以下提供我的-mpvue-loader-的运行依赖" class="headerlink" title="4. 如果执行了第三步，请将 node_modules 中的 mpvue-loader 删除，并删除 package.json 中的 mpvue-loader，并添加 mpvue-loader 的运行依赖到当前项目 package.json 的开发依赖中，以下提供我的 mpvue-loader 的运行依赖"></a>4. 如果执行了第三步，请将 <code>node_modules</code> 中的 <code>mpvue-loader</code> 删除，并删除 <code>package.json</code> 中的 <code>mpvue-loader</code>，并添加 <code>mpvue-loader</code> 的运行依赖到当前项目 <code>package.json</code> 的开发依赖中，以下提供我的 <code>mpvue-loader</code> 的运行依赖</h4><pre><code class="javascript"><span class="string">"babelon"</span>: <span class="string">"^1.0.5"</span>,
+<span class="string">"consolidate"</span>: <span class="string">"^0.14.0"</span>,
+<span class="string">"hash-sum"</span>: <span class="string">"^1.0.2"</span>,
+<span class="string">"js-beautify"</span>: <span class="string">"^1.6.14"</span>,
+<span class="string">"loader-utils"</span>: <span class="string">"^1.1.0"</span>,
+<span class="string">"lru-cache"</span>: <span class="string">"^4.1.1"</span>,
+<span class="string">"postcss"</span>: <span class="string">"^6.0.6"</span>,
+<span class="string">"postcss-load-config"</span>: <span class="string">"^1.1.0"</span>,
+<span class="string">"postcss-selector-parser"</span>: <span class="string">"^2.0.0"</span>,
+<span class="string">"resolve"</span>: <span class="string">"^1.3.3"</span>,
+<span class="string">"source-map"</span>: <span class="string">"^0.5.6"</span>,
+<span class="string">"vue-hot-reload-api"</span>: <span class="string">"^2.1.0"</span>,
+<span class="string">"vue-loader"</span>: <span class="string">"^13.0.4"</span>,
+<span class="string">"vue-style-loader"</span>: <span class="string">"^3.0.0"</span>,
+<span class="string">"vue-template-es2015-compiler"</span>: <span class="string">"^1.5.3"</span>
+
+</code></pre>
+<hr>
+<p>至此 <code>vendor</code> 的拆解工作完成，<code>vendor</code> 体积小于500K, 小程序开发者工具顺利完成打包工作。此方法治标不治本，最好的方法还是删库，删需求，小程序提倡简洁，如果功能太多，拆成两个小程序就好，肯德基的小程序就是这么做的。</p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/home-bg.jpg">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/HTML-Worker">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/js/gitment.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: 'MpVue打包vendor过大问题解决办法',
+        owner: 'aircloud',
+        repo: 'hexo-aircloud-blog',
+        oauth: {
+            client_id: 'your-id-created-by-https://github.com/settings/applications/new',
+            client_secret: 'your-secret-created-by-https://github.com/settings/applications/new',
+        },
+    })
+    gitment.render('comment-container')
+</script>
+
+</html>
